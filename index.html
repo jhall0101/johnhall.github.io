@@ -1,123 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>John Hall — Portfolio</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/lucide@latest"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TERMINAL // JH_DATA_LOG</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg: #030508; --surface: #0a0f16; --border: #1a2633;
+            --accent: #00e5ff; --accent-dim: rgba(0, 229, 255, 0.1);
+            --text: #e8edf5; --muted: #5a6478; --danger: #ff4b4b;
+            --mono: 'DM Mono', monospace; --display: 'Syne', sans-serif;
+        }
+        body { background: var(--bg); color: var(--text); font-family: var(--display); margin: 0; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; z-index: 1; position: relative; }
+        
+        /* Grid Overlay */
+        body::before { content: ''; position: fixed; inset: 0; background: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; opacity: 0.3; }
 
-<style>
-  :root {
-    --bg: #05070a; --surface: #0a0f16; --border: rgba(0, 229, 255, 0.1);
-    --accent: #00e5ff; --text: #e8edf5; --muted: #5a6478;
-    --mono: 'DM Mono', monospace; --display: 'Syne', sans-serif;
-  }
-  body { background: var(--bg); color: var(--text); font-family: var(--display); margin: 0; padding: 40px 20px; line-height: 1.6; }
-  .container { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
-  
-  /* Background Sci-Fi Grid */
-  body::before { content: ''; position: fixed; inset: 0; background: linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px); background-size: 50px 50px; z-index: 0; }
+        header { border-left: 4px solid var(--accent); padding-left: 20px; margin: 40px 0; }
+        h1 { font-size: clamp(32px, 8vw, 64px); margin: 0; letter-spacing: -2px; text-transform: uppercase; }
+        .tagline { font-family: var(--mono); color: var(--accent); font-size: 12px; letter-spacing: 4px; }
 
-  header { border-left: 3px solid var(--accent); padding-left: 20px; margin-bottom: 60px; }
-  h1 { font-size: 64px; margin: 0; letter-spacing: -2px; }
-  .tagline { font-family: var(--mono); color: var(--muted); font-size: 14px; text-transform: uppercase; letter-spacing: 2px; }
+        .admin-bar { background: var(--surface); border: 1px solid var(--accent); padding: 20px; margin-bottom: 30px; display: none; box-shadow: 0 0 20px var(--accent-dim); }
+        .input-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+        input, textarea, select { background: #000; border: 1px solid var(--border); color: #fff; padding: 12px; font-family: var(--mono); font-size: 13px; }
+        input:focus { border-color: var(--accent); outline: none; }
+        
+        .btn { background: none; border: 1px solid var(--accent); color: var(--accent); padding: 10px 20px; cursor: pointer; font-family: var(--mono); text-transform: uppercase; font-size: 11px; transition: 0.2s; }
+        .btn:hover { background: var(--accent); color: #000; }
+        .btn-danger { border-color: var(--danger); color: var(--danger); }
+        .btn-danger:hover { background: var(--danger); color: #fff; }
 
-  h2 { font-size: 12px; font-family: var(--mono); text-transform: uppercase; color: var(--accent); border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-top: 40px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+        .card { background: var(--bg); padding: 25px; transition: 0.3s; position: relative; }
+        .card:hover { background: var(--surface); }
+        .card-img { width: 100%; height: 160px; background: #000; margin-bottom: 15px; object-fit: cover; border: 1px solid var(--border); }
+        .card-tag { font-family: var(--mono); font-size: 10px; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; }
+        .card-title { font-size: 22px; font-weight: 800; margin-bottom: 10px; }
+        .card-desc { font-family: var(--mono); font-size: 12px; color: var(--muted); line-height: 1.5; margin-bottom: 20px; }
+        
+        .admin-actions { display: none; gap: 10px; margin-top: 15px; border-top: 1px solid var(--border); padding-top: 15px; }
+        .edit-mode .admin-actions { display: flex; }
 
-  .card { background: var(--surface); border: 1px solid var(--border); padding: 25px; margin-bottom: 15px; position: relative; }
-  .card-title { font-size: 20px; font-weight: 800; margin-bottom: 5px; }
-  .card-meta { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-bottom: 15px; }
-  .card-desc { font-family: var(--mono); font-size: 13px; color: #a1aab8; }
-
-  /* Admin Interface */
-  #admin-panel { display: none; background: #000; border: 1px dashed var(--accent); padding: 20px; margin-bottom: 40px; }
-  input, textarea { width: 100%; background: #111; border: 1px solid var(--border); color: #fff; padding: 10px; margin-bottom: 10px; font-family: var(--mono); }
-  button { background: none; border: 1px solid var(--accent); color: var(--accent); padding: 10px 20px; cursor: pointer; font-family: var(--mono); font-size: 11px; text-transform: uppercase; }
-  button:hover { background: var(--accent); color: #000; }
-  .login-btn { position: absolute; top: 0; right: 0; border: none; opacity: 0.3; }
-</style>
+        .login-trigger { position: fixed; bottom: 20px; right: 20px; opacity: 0.2; cursor: pointer; font-family: var(--mono); font-size: 10px; }
+    </style>
 </head>
 <body>
 
 <div class="container">
-  <button class="login-btn" onclick="toggleAdmin()">Admin_Login</button>
+    <header>
+        <div class="tagline">DATA_INTEGRITY_VERIFIED // JH0101</div>
+        <h1>John Hall</h1>
+        <p style="font-family: var(--mono); color: var(--muted); margin-top: 5px;">SENIOR ANALYST // M.S. AI & MACHINE LEARNING</p>
+    </header>
 
-  <header>
-    <h1>John Hall</h1>
-    <div class="tagline">Senior Data Analyst | M.S. AI & Machine Learning</div>
-  </header>
-
-  <div id="admin-panel">
-    <input type="text" id="new-title" placeholder="Project Title">
-    <input type="text" id="new-meta" placeholder="Category (e.g. PYTHON / MACHINE LEARNING)">
-    <textarea id="new-desc" rows="3" placeholder="Description... (Use <i data-lucide='cpu'></i> for icons)"></textarea>
-    <button onclick="addProject()">Add Project</button>
-    <button onclick="exportHTML()">Download Updated index.html</button>
-  </div>
-
-  <h2>Experience_Matrix</h2>
-  <div class="card">
-    <div class="card-title">Elevated Candles + Soy Republic</div>
-    <div class="card-meta">Founder / Data & Analytics Lead | 2016 — 2021</div>
-    <div class="card-desc">
-      Analyzed sales and customer data to forecast demand and guide pricing[cite: 76]. 
-      Designed KPI dashboards and reporting workflows to monitor operational performance[cite: 77].
+    <div id="admin-panel" class="admin-bar">
+        <div class="tagline" style="margin-bottom:15px">DATABASE_EDITOR_ACTIVE</div>
+        <div class="input-group">
+            <input type="text" id="p-title" placeholder="PROJECT_TITLE">
+            <input type="text" id="p-category" placeholder="CATEGORY (e.g. VISUALIZATION)">
+        </div>
+        <input type="text" id="p-img" placeholder="IMAGE_URL (Link to an image on GitHub)" style="width: 100%; margin-bottom:10px;">
+        <input type="text" id="p-link" placeholder="EXTERNAL_LINK (URL to live project)" style="width: 100%; margin-bottom:10px;">
+        <textarea id="p-desc" rows="3" placeholder="CORE_DESCRIPTION" style="width: 100%; margin-bottom:10px;"></textarea>
+        
+        <div style="display:flex; gap:10px;">
+            <button class="btn" onclick="saveProject()" id="main-save-btn">Initialize_Entry</button>
+            <button class="btn" onclick="exportFinalHTML()">Download_New_Index.html</button>
+            <button class="btn btn-danger" onclick="cancelEdit()" id="cancel-btn" style="display:none">Cancel_Edit</button>
+        </div>
     </div>
-  </div>
 
-  <h2>Project_Database</h2>
-  <div id="project-list">
-    </div>
+    <div class="grid" id="project-grid"></div>
 </div>
 
+<div class="login-trigger" onclick="unlockAdmin()">[ADMIN_ACCESS]</div>
+
 <script>
-  // YOUR PROJECT DATA LIVES HERE
-  let projects = [
-    { title: "Predictive Trend Analysis", meta: "PYTHON / KPI FORECASTING", desc: "Built forecasting models to analyze historical KPI trends and support planning decisions[cite: 97, 98]." }
-  ];
-
-  function render() {
-    const list = document.getElementById('project-list');
-    list.innerHTML = projects.map(p => `
-      <div class="card">
-        <div class="card-title">${p.title}</div>
-        <div class="card-meta">${p.meta}</div>
-        <div class="card-desc">${p.desc}</div>
-      </div>
-    `).join('');
-    lucide.createIcons();
-  }
-
-  function toggleAdmin() {
-    if (prompt("Access Key:") === "1234") {
-      document.getElementById('admin-panel').style.display = 'block';
-    }
-  }
-
-  function addProject() {
-    const title = document.getElementById('new-title').value;
-    const meta = document.getElementById('new-meta').value;
-    const desc = document.getElementById('new-desc').value;
-    projects.push({ title, meta, desc });
-    render();
-  }
-
-  // THIS CREATES THE NEW FILE FOR GITHUB
-  function exportHTML() {
-    const currentHTML = document.documentElement.outerHTML;
-    const dataString = `let projects = ${JSON.stringify(projects)};`;
-    const finalHTML = "<!DOCTYPE html>\n" + currentHTML.replace(/let projects = \[.*?\];/s, dataString);
+    // DATA STORAGE
+    let projects = [
+        { id: 1, title: "Elevated Candles", category: "CAREER / DATA LEAD", desc: "Forecasted demand and built KPI dashboards for e-commerce operations.", img: "", link: "#" }
+    ];
     
-    const blob = new Blob([finalHTML], {type: 'text/html'});
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'index.html';
-    a.click();
-  }
+    let editingId = null;
 
-  render();
+    function render() {
+        const grid = document.getElementById('project-grid');
+        grid.innerHTML = projects.map(p => `
+            <div class="card ${editingId !== null ? '' : ''}">
+                ${p.img ? `<img src="${p.img}" class="card-img">` : '<div class="card-img" style="display:flex; align-items:center; justify-content:center; color:#1a2633"><i data-lucide="component"></i></div>'}
+                <div class="card-tag">${p.category}</div>
+                <div class="card-title">${p.title}</div>
+                <div class="card-desc">${p.desc}</div>
+                ${p.link !== "#" ? `<a href="${p.link}" target="_blank" class="btn" style="display:inline-block; text-decoration:none; text-align:center;">Launch_Project</a>` : ''}
+                
+                <div class="admin-actions">
+                    <button class="btn" onclick="startEdit(${p.id})">Edit</button>
+                    <button class="btn btn-danger" onclick="deleteProject(${p.id})">Delete</button>
+                </div>
+            </div>
+        `).join('');
+        lucide.createIcons();
+    }
+
+    function unlockAdmin() {
+        if(prompt("ACCESS_KEY:") === "1234") {
+            document.getElementById('admin-panel').style.display = 'block';
+            document.body.classList.add('edit-mode');
+        }
+    }
+
+    function saveProject() {
+        const p = {
+            id: editingId || Date.now(),
+            title: document.getElementById('p-title').value,
+            category: document.getElementById('p-category').value,
+            desc: document.getElementById('p-desc').value,
+            img: document.getElementById('p-img').value,
+            link: document.getElementById('p-link').value
+        };
+
+        if(editingId) {
+            projects = projects.map(old => old.id === editingId ? p : old);
+        } else {
+            projects.push(p);
+        }
+        
+        cancelEdit();
+        render();
+    }
+
+    function startEdit(id) {
+        editingId = id;
+        const p = projects.find(x => x.id === id);
+        document.getElementById('p-title').value = p.title;
+        document.getElementById('p-category').value = p.category;
+        document.getElementById('p-desc').value = p.desc;
+        document.getElementById('p-img').value = p.img;
+        document.getElementById('p-link').value = p.link;
+        
+        document.getElementById('main-save-btn').innerText = "Update_Entry";
+        document.getElementById('cancel-btn').style.display = "block";
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    function cancelEdit() {
+        editingId = null;
+        document.getElementById('p-title').value = '';
+        document.getElementById('p-category').value = '';
+        document.getElementById('p-desc').value = '';
+        document.getElementById('p-img').value = '';
+        document.getElementById('p-link').value = '';
+        document.getElementById('main-save-btn').innerText = "Initialize_Entry";
+        document.getElementById('cancel-btn').style.display = "none";
+    }
+
+    function deleteProject(id) {
+        if(confirm("Confirm Deletion?")) {
+            projects = projects.filter(p => p.id !== id);
+            render();
+        }
+    }
+
+    function exportFinalHTML() {
+        const dataString = `let projects = ${JSON.stringify(projects)};`;
+        const html = document.documentElement.outerHTML.replace(/let projects = \[.*?\];/s, dataString);
+        const blob = new Blob(["<!DOCTYPE html>\n" + html], {type: 'text/html'});
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'index.html';
+        a.click();
+    }
+
+    render();
 </script>
 </body>
 </html>

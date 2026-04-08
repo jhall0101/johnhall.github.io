@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en"><plasmo-csui id="jobright-helper-plugin"></plasmo-csui><head>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JH_TERMINAL_V4.0</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&amp;family=DM+Mono:wght@300;400&amp;display=swap" rel="stylesheet">
+    <title>JH_TERMINAL_V4.1</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
@@ -15,114 +16,104 @@
         body { background: var(--bg); color: var(--text); font-family: var(--display); margin: 0; padding: 20px; }
         .container { max-width: 1100px; margin: 0 auto; z-index: 1; position: relative; }
         
-        /* Sci-Fi Grid Overlay */
         body::before { content: ''; position: fixed; inset: 0; background: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 50px 50px; pointer-events: none; opacity: 0.2; }
 
         header { border-left: 4px solid var(--accent); padding-left: 20px; margin: 40px 0; }
         h1 { font-size: clamp(32px, 8vw, 64px); margin: 0; letter-spacing: -2px; text-transform: uppercase; }
         .tagline { font-family: var(--mono); color: var(--accent); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; }
 
-        /* Navigation & Filters */
         .nav-zone { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid var(--border); padding-bottom: 20px; flex-wrap: wrap; gap: 15px; }
         .filter-list { display: flex; gap: 10px; flex-wrap: wrap; }
-        .filter-btn { background: none; border: 1px solid var(--border); color: var(--muted); padding: 6px 14px; font-family: var(--mono); font-size: 10px; cursor: pointer; text-transform: uppercase; }
-        .filter-btn.active { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+        
+        /* Category Button Glow */
+        .filter-btn { background: none; border: 1px solid var(--border); color: var(--muted); padding: 8px 16px; font-family: var(--mono); font-size: 10px; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
+        .filter-btn:hover, .filter-btn.active { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); box-shadow: 0 0 15px var(--accent-dim); }
 
-        /* Admin Box (The Glow) */
         .admin-bar { background: var(--surface); border: 1px solid var(--accent); padding: 25px; margin-bottom: 40px; display: none; box-shadow: 0 0 25px var(--accent-dim); }
         .input-group { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
         input, textarea { background: #000; border: 1px solid var(--border); color: #fff; padding: 12px; font-family: var(--mono); font-size: 13px; width: 100%; box-sizing: border-box; }
-        input:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 10px var(--accent-dim); }
         
         .btn { background: none; border: 1px solid var(--accent); color: var(--accent); padding: 10px 20px; cursor: pointer; font-family: var(--mono); text-transform: uppercase; font-size: 11px; transition: 0.2s; }
         .btn:hover { background: var(--accent); color: #000; box-shadow: 0 0 15px var(--accent); }
-        .btn-danger { border-color: var(--danger); color: var(--danger); }
 
-        /* Project Cards (Now with Glow) */
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
         .card { background: var(--surface); border: 1px solid var(--border); padding: 25px; transition: 0.4s; position: relative; display: flex; flex-direction: column; }
         .card:hover { border-color: var(--accent); box-shadow: 0 0 25px var(--accent-dim); transform: translateY(-5px); }
-        .card-img { width: 100%; height: 180px; background: #000; margin-bottom: 20px; object-fit: cover; border: 1px solid var(--border); }
+
+        /* Image Squashing & Color Filter */
+        .card-img { 
+            width: 100%; 
+            aspect-ratio: 16 / 9; 
+            object-fit: cover; 
+            background: #000; 
+            margin-bottom: 20px; 
+            border: 1px solid var(--border);
+            filter: grayscale(100%) brightness(0.7) sepia(100%) hue-rotate(150deg) saturate(400%);
+            transition: 0.5s ease;
+        }
+        .card:hover .card-img { filter: grayscale(0%) brightness(1) sepia(0%) hue-rotate(0deg) saturate(100%); }
+
         .card-tag { font-family: var(--mono); font-size: 10px; color: var(--accent); margin-bottom: 10px; letter-spacing: 1px; }
         .card-title { font-size: 24px; font-weight: 800; margin-bottom: 10px; color: var(--text); }
         .card-desc { font-family: var(--mono); font-size: 13px; color: #a1aab8; line-height: 1.6; flex-grow: 1; margin-bottom: 20px; }
         
         .admin-actions { display: none; gap: 10px; margin-top: 20px; border-top: 1px solid var(--border); padding-top: 15px; }
         .edit-mode .admin-actions { display: flex; }
-
         .login-trigger { position: fixed; bottom: 20px; left: 20px; opacity: 0.1; cursor: pointer; font-family: var(--mono); font-size: 9px; }
     </style>
-<style type="text/css" id="operaUserStyle"></style><style type="text/css"></style></head>
-<body data-new-gr-c-s-check-loaded="14.1280.0" data-gr-ext-installed="" class="edit-mode">
+</head>
+<body>
 
 <div class="container">
     <header>
-        <div class="tagline">VERSION_4.0 // ACTIVE_DATA_STREAM</div>
+        <div class="tagline">SYSTEM_LOG // JH_V4.1</div>
         <h1>John Hall</h1>
-        <p style="font-family: var(--mono); color: var(--muted);">SR_ANALYST // AI_ML_SPECIALIST</p>
+        <p style="font-family: var(--mono); color: var(--muted);">SR_ANALYST // AI_ML_INTELLIGENCE</p>
     </header>
 
     <div class="nav-zone">
-        <div class="filter-list" id="filter-bar">
-            <button class="filter-btn active" onclick="setFilter('ALL')">ALL</button>
-        
-            <button class="filter-btn " onclick="setFilter('CAREER')">CAREER</button>
-        </div>
-        <button class="btn" onclick="unlockAdmin()" id="lock-btn" style="display: none;">Admin_Access</button>
+        <div class="filter-list" id="filter-bar"></div>
+        <button class="btn" onclick="unlockAdmin()" id="lock-btn">Admin_Access</button>
     </div>
 
-    <div id="admin-panel" class="admin-bar" style="display: block;">
+    <div id="admin-panel" class="admin-bar">
         <div class="input-group">
             <input type="text" id="p-title" placeholder="ENTRY_NAME">
-            <input type="text" id="p-category" placeholder="DOMAIN (e.g. VISUALS, CODE)">
+            <input type="text" id="p-category" placeholder="DOMAIN (e.g. VISUALS)">
         </div>
         <div class="input-group">
-            <input type="text" id="p-img" placeholder="IMG_PATH (e.g. chart.png)">
+            <input type="text" id="p-img" placeholder="IMG_FILENAME.PNG">
             <input type="text" id="p-link" placeholder="EXTERNAL_URL">
         </div>
-        <textarea id="p-desc" rows="3" placeholder="CORE_LOG_DATA (Icons: &lt;i data-lucide='cpu'&gt;&lt;/i&gt;)"></textarea>
+        <textarea id="p-desc" rows="3" placeholder="CORE_LOG_DATA"></textarea>
         
         <div style="display:flex; gap:10px;">
             <button class="btn" onclick="saveProject()" id="main-save-btn">Sync_To_Mainframe</button>
-            <button class="btn" onclick="exportFinalHTML()">Download_v4_Index.html</button>
-            <button class="btn btn-danger" onclick="cancelEdit()" id="cancel-btn" style="display: none;">Abort</button>
+            <button class="btn" onclick="exportFinalHTML()">Download HTML</button>
+            <button class="btn btn-danger" onclick="cancelEdit()" id="cancel-btn" style="display:none">Abort</button>
         </div>
     </div>
 
-    <div class="grid" id="project-grid">
-            <div class="card">
-                <img src="fall fantasy.png" class="card-img">
-                <div class="card-tag">// CAREER</div>
-                <div class="card-title">Elevated Candles <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="flame" aria-hidden="true" class="lucide lucide-flame"><path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4"></path></svg></div>
-                <div class="card-desc">Founder &amp; Data Lead. Developed forecasting models and KPI dashboards.</div>
-                <a href="https://www.instagram.com/elevatedcandles/" target="_blank" class="btn" style="text-decoration:none; text-align:center;">Launch_Module</a>
-                
-                <div class="admin-actions">
-                    <button class="btn" onclick="startEdit(1)">Edit</button>
-                    <button class="btn btn-danger" onclick="deleteProject(1)">Delete</button>
-                </div>
-            </div>
-        </div>
+    <div class="grid" id="project-grid"></div>
 </div>
 
-<div class="login-trigger" onclick="unlockAdmin()">[REDACTED_ACCESS]</div>
+<div class="login-trigger" onclick="unlockAdmin()">[ENCRYPTED]</div>
 
 <script>
-    // DATA CORE - Update this as you add projects
-    let projects = [{"id":1,"title":"Elevated Candles <i data-lucide=\"flame\"></i>","category":"CAREER","desc":"Founder & Data Lead. Developed forecasting models and KPI dashboards.","img":"fall fantasy.png","link":"https://www.instagram.com/elevatedcandles/"}];
+    let projects = [
+        { id: 1, title: "Elevated Candles", category: "CAREER", desc: "Founder & Data Lead. Developed forecasting models and KPI dashboards.", img: "", link: "#" }
+    ];
     
     let editingId = null;
     let currentFilter = 'ALL';
 
     function render() {
-        // 1. Render Filters
         const uniqueCategories = ['ALL', ...new Set(projects.map(p => p.category.toUpperCase()))];
         const filterBar = document.getElementById('filter-bar');
         filterBar.innerHTML = uniqueCategories.map(cat => `
             <button class="filter-btn ${currentFilter === cat ? 'active' : ''}" onclick="setFilter('${cat}')">${cat}</button>
         `).join('');
 
-        // 2. Render Projects
         const grid = document.getElementById('project-grid');
         const filtered = currentFilter === 'ALL' ? projects : projects.filter(p => p.category.toUpperCase() === currentFilter);
         
@@ -133,7 +124,6 @@
                 <div class="card-title">${p.title}</div>
                 <div class="card-desc">${p.desc}</div>
                 ${p.link !== "#" ? `<a href="${p.link}" target="_blank" class="btn" style="text-decoration:none; text-align:center;">Launch_Module</a>` : ''}
-                
                 <div class="admin-actions">
                     <button class="btn" onclick="startEdit(${p.id})">Edit</button>
                     <button class="btn btn-danger" onclick="deleteProject(${p.id})">Delete</button>
@@ -143,10 +133,7 @@
         lucide.createIcons();
     }
 
-    function setFilter(cat) {
-        currentFilter = cat;
-        render();
-    }
+    function setFilter(cat) { currentFilter = cat; render(); }
 
     function unlockAdmin() {
         if(prompt("INPUT_PASSCODE:") === "1234") {
@@ -165,13 +152,8 @@
             img: document.getElementById('p-img').value,
             link: document.getElementById('p-link').value
         };
-
-        if(editingId) {
-            projects = projects.map(old => old.id === editingId ? p : old);
-        } else {
-            projects.push(p);
-        }
-        
+        if(editingId) { projects = projects.map(old => old.id === editingId ? p : old); } 
+        else { projects.push(p); }
         cancelEdit();
         render();
     }
@@ -197,24 +179,26 @@
     }
 
     function deleteProject(id) {
-        if(confirm("DESTRUCT_ENTRY?")) {
-            projects = projects.filter(p => p.id !== id);
-            render();
-        }
+        if(confirm("DESTRUCT_ENTRY?")) { projects = projects.filter(p => p.id !== id); render(); }
     }
 
     function exportFinalHTML() {
+        // Prepare clean HTML for export
         const dataString = `let projects = ${JSON.stringify(projects)};`;
-        const html = document.documentElement.outerHTML.replace(/let projects = \[.*?\];/s, dataString);
+        let html = document.documentElement.outerHTML;
+        
+        // Use Regex to force-hide admin panel and reset buttons in the saved file
+        html = html.replace(/let projects = \[.*?\];/s, dataString);
+        html = html.replace(/display: block;(?="><div class="tagline">DATABASE_EDITOR_ACTIVE)/, 'display: none;');
+        html = html.replace('class="edit-mode"', ''); 
+        
         const blob = new Blob(["<!DOCTYPE html>\n" + html], {type: 'text/html'});
         const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
         a.download = 'index.html';
         a.click();
     }
-
     render();
 </script>
-
-
-</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
+</body>
+</html>

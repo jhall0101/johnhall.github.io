@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><plasmo-csui id="jobright-helper-plugin"></plasmo-csui><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TERMINAL // JH_DATA_LOG</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&amp;family=DM+Mono:wght@300;400&amp;display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script><style type="text/css" id="operaUserStyle"></style>
     <style>
         :root {
             --bg: #030508; --surface: #0a0f16; --border: #1a2633;
@@ -46,17 +45,17 @@
 
         .login-trigger { position: fixed; bottom: 20px; right: 20px; opacity: 0.2; cursor: pointer; font-family: var(--mono); font-size: 10px; }
     </style>
-</head>
-<body>
+<style type="text/css"></style></head>
+<body data-new-gr-c-s-check-loaded="14.1280.0" data-gr-ext-installed="" class="edit-mode" data-new-gr-c-s-loaded="14.1280.0">
 
-<div class="container">
+<div class="container"><grammarly-extension data-grammarly-shadow-root="true" class="dnXmp" style="position: absolute; top: 0px; left: 0px; pointer-events: none; --rem: 16;"></grammarly-extension><grammarly-extension data-grammarly-shadow-root="true" class="dnXmp" style="position: absolute; top: 0px; left: 0px; pointer-events: none; --rem: 16;"></grammarly-extension>
     <header>
         <div class="tagline">DATA_INTEGRITY_VERIFIED // JH0101</div>
         <h1>John Hall</h1>
-        <p style="font-family: var(--mono); color: var(--muted); margin-top: 5px;">SENIOR ANALYST // M.S. AI & MACHINE LEARNING</p>
+        <p style="font-family: var(--mono); color: var(--muted); margin-top: 5px;">SENIOR ANALYST // M.S. AI &amp; MACHINE LEARNING</p>
     </header>
 
-    <div id="admin-panel" class="admin-bar">
+    <div id="admin-panel" class="admin-bar" style="display: block;">
         <div class="tagline" style="margin-bottom:15px">DATABASE_EDITOR_ACTIVE</div>
         <div class="input-group">
             <input type="text" id="p-title" placeholder="PROJECT_TITLE">
@@ -64,25 +63,37 @@
         </div>
         <input type="text" id="p-img" placeholder="IMAGE_URL (Link to an image on GitHub)" style="width: 100%; margin-bottom:10px;">
         <input type="text" id="p-link" placeholder="EXTERNAL_LINK (URL to live project)" style="width: 100%; margin-bottom:10px;">
-        <textarea id="p-desc" rows="3" placeholder="CORE_DESCRIPTION" style="width: 100%; margin-bottom:10px;"></textarea>
+        <textarea id="p-desc" rows="3" placeholder="CORE_DESCRIPTION" style="width: 100%; margin-bottom:10px;" spellcheck="false"></textarea>
         
         <div style="display:flex; gap:10px;">
             <button class="btn" onclick="saveProject()" id="main-save-btn">Initialize_Entry</button>
             <button class="btn" onclick="exportFinalHTML()">Download_New_Index.html</button>
-            <button class="btn btn-danger" onclick="cancelEdit()" id="cancel-btn" style="display:none">Cancel_Edit</button>
+            <button class="btn btn-danger" onclick="cancelEdit()" id="cancel-btn" style="display: none;">Cancel_Edit</button>
         </div>
     </div>
 
-    <div class="grid" id="project-grid"></div>
-</div>
+    <div class="grid" id="project-grid">
+            <div class="card ">
+                <img src="https://github.com/jhall0101/portfolio/blob/main/fall%20fantasy.png" class="card-img">
+                <div class="card-tag">CAREER / DATA LEAD</div>
+                <div class="card-title">Elevated Candles</div>
+                <div class="card-desc">Forecasted demand and built KPI dashboards for e-commerce operations. 
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="flame" aria-hidden="true" class="lucide lucide-flame"><path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4"></path></svg></div>
+                <a href="https://www.instagram.com/elevatedcandles/" target="_blank" class="btn" style="display:inline-block; text-decoration:none; text-align:center;">Launch_Project</a>
+                
+                <div class="admin-actions">
+                    <button class="btn" onclick="startEdit(1)">Edit</button>
+                    <button class="btn btn-danger" onclick="deleteProject(1)">Delete</button>
+                </div>
+            </div>
+        </div>
+<grammarly-extension-vbars data-grammarly-shadow-root="true" class="dnXmp" style="display: contents; --rem: 16;"></grammarly-extension-vbars><superhuman-go-underlines data-grammarly-shadow-root="true" class="dnXmp" style="display: contents; --rem: 16;"></superhuman-go-underlines></div>
 
 <div class="login-trigger" onclick="unlockAdmin()">[ADMIN_ACCESS]</div>
 
 <script>
     // DATA STORAGE
-    let projects = [
-        { id: 1, title: "Elevated Candles", category: "CAREER / DATA LEAD", desc: "Forecasted demand and built KPI dashboards for e-commerce operations.", img: "", link: "#" }
-    ];
+    let projects = [{"id":1,"title":"Elevated Candles","category":"CAREER / DATA LEAD","desc":"Forecasted demand and built KPI dashboards for e-commerce operations. \n<i data-lucide=\"flame\"></i>","img":"https://github.com/jhall0101/portfolio/blob/main/fall%20fantasy.png","link":"https://www.instagram.com/elevatedcandles/"}];
     
     let editingId = null;
 
@@ -176,5 +187,6 @@
 
     render();
 </script>
-</body>
-</html>
+
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration><grammarly-mirror data-grammarly-shadow-root="true" class="dnXmp" style="--rem: 16;"></grammarly-mirror><grammarly-popups data-grammarly-shadow-root="true" class="dnXmp" style="--rem: 16;"></grammarly-popups><grammarly-extension-vbar-card data-grammarly-shadow-root="true" class="dnXmp" style="--rem: 16;"></grammarly-extension-vbar-card><grammarly-extension-vbars-feedback-form data-grammarly-shadow-root="true" class="dnXmp" style="--rem: 16;"></grammarly-extension-vbars-feedback-form><superhuman-go-underline-card data-grammarly-shadow-root="true" class="dnXmp" style="--rem: 16;"></superhuman-go-underline-card></html>

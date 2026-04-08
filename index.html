@@ -3,105 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JH_TERMINAL_V4.1</title>
+    <title>JH_TERMINAL_V8.0</title>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
             --bg: #030508; --surface: #0a0f16; --border: #1a2633;
-            --accent: #00e5ff; --accent-dim: rgba(0, 229, 255, 0.15);
+            --accent: #00e5ff; --accent-dim: rgba(0, 229, 255, 0.1);
             --text: #e8edf5; --muted: #5a6478; --danger: #ff4b4b;
             --mono: 'DM Mono', monospace; --display: 'Syne', sans-serif;
-        }https://www.instagram.com/elevatedcandles/
-        body { background: var(--bg); color: var(--text); font-family: var(--display); margin: 0; padding: 20px; }
-        .container { max-width: 1100px; margin: 0 auto; z-index: 1; position: relative; }
-        
-        body::before { content: ''; position: fixed; inset: 0; background: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 50px 50px; pointer-events: none; opacity: 0.2; }
-
-        header { border-left: 4px solid var(--accent); padding-left: 20px; margin: 40px 0; }
-        h1 { font-size: clamp(32px, 8vw, 64px); margin: 0; letter-spacing: -2px; text-transform: uppercase; }
-        .tagline { font-family: var(--mono); color: var(--accent); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; }
-
-        .nav-zone { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid var(--border); padding-bottom: 20px; flex-wrap: wrap; gap: 15px; }
-        .filter-list { display: flex; gap: 10px; flex-wrap: wrap; }
-        
-        /* Category Button Glow */
-        .filter-btn { background: none; border: 1px solid var(--border); color: var(--muted); padding: 8px 16px; font-family: var(--mono); font-size: 10px; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
-        .filter-btn:hover, .filter-btn.active { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); box-shadow: 0 0 15px var(--accent-dim); }
-
-        .admin-bar { background: var(--surface); border: 1px solid var(--accent); padding: 25px; margin-bottom: 40px; display: none; box-shadow: 0 0 25px var(--accent-dim); }
-        .input-group { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
-        input, textarea { background: #000; border: 1px solid var(--border); color: #fff; padding: 12px; font-family: var(--mono); font-size: 13px; width: 100%; box-sizing: border-box; }
-        
-        .btn { background: none; border: 1px solid var(--accent); color: var(--accent); padding: 10px 20px; cursor: pointer; font-family: var(--mono); text-transform: uppercase; font-size: 11px; transition: 0.2s; }
-        .btn:hover { background: var(--accent); color: #000; box-shadow: 0 0 15px var(--accent); }
-
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
-        .card { background: var(--surface); border: 1px solid var(--border); padding: 25px; transition: 0.4s; position: relative; display: flex; flex-direction: column; }
-        .card:hover { border-color: var(--accent); box-shadow: 0 0 25px var(--accent-dim); transform: translateY(-5px); }
-
-        /* Image Squashing & Color Filter */
-        .card-img { 
-            width: 100%; 
-            aspect-ratio: 16 / 9; 
-            object-fit: cover; 
-            background: #000; 
-            margin-bottom: 20px; 
-            border: 1px solid var(--border);
-            filter: grayscale(100%) brightness(0.7) sepia(100%) hue-rotate(150deg) saturate(400%);
-            transition: 0.5s ease;
         }
-        .card:hover .card-img { filter: grayscale(0%) brightness(1) sepia(0%) hue-rotate(0deg) saturate(100%); }
+        body { background: var(--bg); color: var(--text); font-family: var(--display); margin: 0; padding: 20px; line-height: 1.5; }
+        .container { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+        
+        /* Grid Overlay */
+        body::before { content: ''; position: fixed; inset: 0; background: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; opacity: 0.15; }
 
-        .card-tag { font-family: var(--mono); font-size: 10px; color: var(--accent); margin-bottom: 10px; letter-spacing: 1px; }
-        .card-title { font-size: 24px; font-weight: 800; margin-bottom: 10px; color: var(--text); }
-        .card-desc { font-family: var(--mono); font-size: 13px; color: #a1aab8; line-height: 1.6; flex-grow: 1; margin-bottom: 20px; }
+        header { border-left: 4px solid var(--accent); padding-left: 20px; margin: 60px 0; }
+        h1 { font-size: clamp(40px, 8vw, 72px); margin: 0; letter-spacing: -3px; text-transform: uppercase; }
+        .tagline { font-family: var(--mono); color: var(--accent); font-size: 11px; letter-spacing: 4px; text-transform: uppercase; }
+
+        /* Navigation & Category Glow */
+        .nav-zone { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; border-bottom: 1px solid var(--border); padding-bottom: 25px; gap: 20px; }
+        .filter-list { display: flex; gap: 12px; flex-wrap: wrap; }
+        
+        .filter-btn { background: none; border: 1px solid var(--border); color: var(--muted); padding: 10px 18px; font-family: var(--mono); font-size: 10px; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
+        /* FULL GLOW on Active Categories */
+        .filter-btn.active { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); box-shadow: 0 0 20px var(--accent), inset 0 0 10px var(--accent-dim); text-shadow: 0 0 8px var(--accent); }
+
+        /* Admin Box (Lesser Glow) */
+        .admin-bar { background: var(--surface); border: 1px solid var(--border); padding: 25px; margin-bottom: 40px; display: none; }
+        input, textarea { background: #000; border: 1px solid var(--border); color: #fff; padding: 12px; font-family: var(--mono); font-size: 13px; width: 100%; margin-bottom: 15px; box-sizing: border-box; }
+        
+        .btn { background: none; border: 1px solid var(--accent); color: var(--accent); padding: 12px 24px; cursor: pointer; font-family: var(--mono); text-transform: uppercase; font-size: 11px; transition: 0.2s; }
+        .btn:hover { background: var(--accent-dim); box-shadow: 0 0 10px var(--accent-dim); }
+        .btn-danger { border-color: var(--danger); color: var(--danger); }
+        .btn-danger:hover { background: rgba(255, 75, 75, 0.1); border-color: var(--danger); }
+
+        /* Project Cards */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 25px; }
+        .card { background: var(--surface); border: 1px solid var(--border); padding: 25px; transition: 0.4s; position: relative; }
+        .card:hover { border-color: var(--accent); box-shadow: 0 0 30px var(--accent-dim); transform: translateY(-5px); }
+
+        /* Image colorize filter */
+        .card-img { 
+            width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: #000; margin-bottom: 20px; 
+            filter: grayscale(100%) brightness(0.8) sepia(100%) hue-rotate(150deg) saturate(500%);
+            transition: 0.4s ease; border: 1px solid var(--border);
+        }
+        .card:hover .card-img { filter: none; }
+
+        .card-tag { font-family: var(--mono); font-size: 10px; color: var(--accent); margin-bottom: 10px; opacity: 0.8; }
+        .card-title { font-size: 26px; font-weight: 800; margin-bottom: 12px; }
+        .card-desc { font-family: var(--mono); font-size: 13px; color: #a1aab8; margin-bottom: 20px; }
+
+        /* Modal / More Info */
+        #detail-modal { position: fixed; inset: 0; background: rgba(3,5,8,0.95); z-index: 100; display: none; align-items: center; justify-content: center; padding: 40px; backdrop-filter: blur(10px); }
+        .modal-content { background: var(--surface); border: 1px solid var(--accent); max-width: 800px; width: 100%; padding: 40px; box-shadow: 0 0 50px rgba(0,229,255,0.2); position: relative; }
         
         .admin-actions { display: none; gap: 10px; margin-top: 20px; border-top: 1px solid var(--border); padding-top: 15px; }
         .edit-mode .admin-actions { display: flex; }
-        .login-trigger { position: fixed; bottom: 20px; left: 20px; opacity: 0.1; cursor: pointer; font-family: var(--mono); font-size: 9px; }
+        .login-trigger { position: fixed; bottom: 20px; right: 20px; opacity: 0.05; cursor: pointer; font-size: 10px; }
     </style>
 </head>
 <body>
 
+<div id="detail-modal" onclick="closeModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <div class="tagline" id="modal-cat">CATEGORY_LOG</div>
+        <h2 id="modal-title" style="font-size: 48px; margin: 10px 0;">PROJECT_TITLE</h2>
+        <div id="modal-body" style="font-family: var(--mono); color: #a1aab8; white-space: pre-wrap;"></div>
+        <button class="btn" style="margin-top:30px" onclick="closeModal()">Close_Terminal</button>
+    </div>
+</div>
+
 <div class="container">
     <header>
-        <div class="tagline">SYSTEM_LOG // JH_V4.1</div>
+        <div class="tagline">SYSTEM_VERSION_8.0 // MASTER</div>
         <h1>John Hall</h1>
-        <p style="font-family: var(--mono); color: var(--muted);">SR_ANALYST // AI_ML_INTELLIGENCE</p>
+        <p style="font-family: var(--mono); color: var(--muted); letter-spacing: 1px;">SR_ANALYST // AI_ML_ARCHITECTURE</p>
     </header>
 
     <div class="nav-zone">
         <div class="filter-list" id="filter-bar"></div>
-        <button class="btn" onclick="unlockAdmin()" id="lock-btn">Admin_Access</button>
+        <button class="btn" onclick="unlockAdmin()" id="lock-btn" style="opacity:0.4; border-color:var(--muted); color:var(--muted)">Admin_Access</button>
     </div>
 
     <div id="admin-panel" class="admin-bar">
-        <div class="input-group">
+        <div class="input-group" style="display:grid; grid-template-columns:1fr 1fr; gap:15px">
             <input type="text" id="p-title" placeholder="ENTRY_NAME">
             <input type="text" id="p-category" placeholder="DOMAIN (e.g. VISUALS)">
         </div>
-        <div class="input-group">
-            <input type="text" id="p-img" placeholder="IMG_FILENAME.PNG">
-            <input type="text" id="p-link" placeholder="EXTERNAL_URL">
-        </div>
-        <textarea id="p-desc" rows="3" placeholder="CORE_LOG_DATA"></textarea>
+        <input type="text" id="p-img" placeholder="IMG_FILENAME.PNG (Use Raw Link if GitHub)">
+        <textarea id="p-desc" rows="2" placeholder="SHORT_PREVIEW (Card View)"></textarea>
+        <textarea id="p-detail" rows="4" placeholder="EXPANDED_LOG (Full Info Modal View)"></textarea>
         
         <div style="display:flex; gap:10px;">
             <button class="btn" onclick="saveProject()" id="main-save-btn">Sync_To_Mainframe</button>
             <button class="btn" onclick="exportFinalHTML()">Download HTML</button>
-            <button class="btn btn-danger" onclick="cancelEdit()" id="cancel-btn" style="display:none">Abort</button>
+            <button class="btn btn-danger" onclick="cancelEdit()" id="cancel-btn" style="display:none">Abort_Changes</button>
         </div>
     </div>
 
     <div class="grid" id="project-grid"></div>
 </div>
 
-<div class="login-trigger" onclick="unlockAdmin()">[ENCRYPTED]</div>
+<div class="login-trigger" onclick="unlockAdmin()">[REDACTED]</div>
 
 <script>
     let projects = [
-        { id: 1, title: "Elevated Candles", category: "CAREER", desc: "Founder & Data Lead. Developed forecasting models and KPI dashboards.", img: "", link: "#" }
+        { id: 1, title: "Elevated Candles", category: "CAREER", desc: "Founder & Data Lead. Developed forecasting models and KPI dashboards.", detail: "Full technical breakdown:\n- SQL Server optimization\n- Tableau Dashboard design\n- 40% growth in efficiency.", img: "" }
     ];
     
     let editingId = null;
@@ -119,11 +130,11 @@
         
         grid.innerHTML = filtered.map(p => `
             <div class="card">
-                ${p.img ? `<img src="${p.img}" class="card-img">` : '<div class="card-img" style="display:flex; align-items:center; justify-content:center; opacity:0.2"><i data-lucide="box" size="48"></i></div>'}
+                ${p.img ? `<img src="${p.img}" class="card-img">` : '<div class="card-img" style="display:flex; align-items:center; justify-content:center; opacity:0.1"><i data-lucide="database" size="48"></i></div>'}
                 <div class="card-tag">// ${p.category}</div>
                 <div class="card-title">${p.title}</div>
                 <div class="card-desc">${p.desc}</div>
-                ${p.link !== "#" ? `<a href="${p.link}" target="_blank" class="btn" style="text-decoration:none; text-align:center;">Launch_Module</a>` : ''}
+                <button class="btn" onclick="openModal(${p.id})">Launch_Module</button>
                 <div class="admin-actions">
                     <button class="btn" onclick="startEdit(${p.id})">Edit</button>
                     <button class="btn btn-danger" onclick="deleteProject(${p.id})">Delete</button>
@@ -133,13 +144,21 @@
         lucide.createIcons();
     }
 
+    function openModal(id) {
+        const p = projects.find(x => x.id === id);
+        document.getElementById('modal-title').innerText = p.title;
+        document.getElementById('modal-cat').innerText = `LOG_DATA // ${p.category}`;
+        document.getElementById('modal-body').innerText = p.detail || p.desc;
+        document.getElementById('detail-modal').style.display = 'flex';
+    }
+
+    function closeModal() { document.getElementById('detail-modal').style.display = 'none'; }
     function setFilter(cat) { currentFilter = cat; render(); }
 
     function unlockAdmin() {
-        if(prompt("INPUT_PASSCODE:") === "1234") {
+        if(prompt("PASSCODE:") === "1234") {
             document.getElementById('admin-panel').style.display = 'block';
             document.body.classList.add('edit-mode');
-            document.getElementById('lock-btn').style.display = 'none';
         }
     }
 
@@ -149,23 +168,21 @@
             title: document.getElementById('p-title').value,
             category: document.getElementById('p-category').value || 'GENERAL',
             desc: document.getElementById('p-desc').value,
-            img: document.getElementById('p-img').value,
-            link: document.getElementById('p-link').value
+            detail: document.getElementById('p-detail').value,
+            img: document.getElementById('p-img').value
         };
-        if(editingId) { projects = projects.map(old => old.id === editingId ? p : old); } 
-        else { projects.push(p); }
-        cancelEdit();
-        render();
+        if(editingId) projects = projects.map(old => old.id === editingId ? p : old);
+        else projects.push(p);
+        cancelEdit(); render();
     }
 
     function startEdit(id) {
-        editingId = id;
-        const p = projects.find(x => x.id === id);
+        editingId = id; const p = projects.find(x => x.id === id);
         document.getElementById('p-title').value = p.title;
         document.getElementById('p-category').value = p.category;
         document.getElementById('p-desc').value = p.desc;
+        document.getElementById('p-detail').value = p.detail || '';
         document.getElementById('p-img').value = p.img;
-        document.getElementById('p-link').value = p.link;
         document.getElementById('main-save-btn').innerText = "Update_Entry";
         document.getElementById('cancel-btn').style.display = "block";
         window.scrollTo({top: 0, behavior: 'smooth'});
@@ -173,24 +190,23 @@
 
     function cancelEdit() {
         editingId = null;
-        ['p-title','p-category','p-desc','p-img','p-link'].forEach(id => document.getElementById(id).value = '');
+        ['p-title','p-category','p-desc','p-detail','p-img'].forEach(id => document.getElementById(id).value = '');
         document.getElementById('main-save-btn').innerText = "Sync_To_Mainframe";
         document.getElementById('cancel-btn').style.display = "none";
     }
 
     function deleteProject(id) {
-        if(confirm("DESTRUCT_ENTRY?")) { projects = projects.filter(p => p.id !== id); render(); }
+        if(confirm("PERMANENTLY_DELETE_ENTRY?")) { projects = projects.filter(p => p.id !== id); render(); }
     }
 
     function exportFinalHTML() {
-        // Prepare clean HTML for export
+        // CLOSE ADMIN BEFORE SAVING
         const dataString = `let projects = ${JSON.stringify(projects)};`;
         let html = document.documentElement.outerHTML;
-        
-        // Use Regex to force-hide admin panel and reset buttons in the saved file
         html = html.replace(/let projects = \[.*?\];/s, dataString);
-        html = html.replace(/display: block;(?="><div class="tagline">DATABASE_EDITOR_ACTIVE)/, 'display: none;');
-        html = html.replace('class="edit-mode"', ''); 
+        // FORCE HIDE ADMIN UI IN SAVED FILE
+        html = html.replace('display: block;', 'display: none;'); 
+        html = html.replace('class="edit-mode"', '');
         
         const blob = new Blob(["<!DOCTYPE html>\n" + html], {type: 'text/html'});
         const a = document.createElement('a');

@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JH_TERMINAL_V17.3</title>
+    <title>JH_TERMINAL_V17.4</title>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -25,6 +25,7 @@
 
         header { border-left: 4px solid var(--accent); padding-left: 20px; margin: 60px 0; }
         h1 { font-size: clamp(40px, 8vw, 72px); margin: 0; letter-spacing: -3px; text-transform: uppercase; line-height: 0.9; }
+        /* Cleaned Version Heading */
         .tagline { font-family: var(--mono); color: var(--accent); font-size: 11px; letter-spacing: 4px; text-transform: uppercase; }
 
         .nav-zone { margin-bottom: 40px; border-bottom: 1px solid var(--border); padding-bottom: 25px; }
@@ -48,7 +49,6 @@
         .card { background: var(--surface); border: 1px solid var(--border); padding: 25px; transition: 0.4s; display: flex; flex-direction: column; }
         .card:hover { border-color: var(--accent); transform: translateY(-5px); }
         
-        /* The Blue-Shift Filter Logic */
         .card-img { 
             width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: #000; margin-bottom: 20px; border: 1px solid var(--border);
             filter: grayscale(100%) contrast(1.1); transition: 0.5s ease;
@@ -57,7 +57,8 @@
             filter: grayscale(100%) brightness(0.8) sepia(100%) hue-rotate(150deg) saturate(500%); 
         }
 
-        .card-title { font-size: 26px; font-weight: 800; margin-bottom: 12px; letter-spacing: -1px; }
+        /* Restored V17.1 Syne Project Title Font */
+        .card-title { font-family: var(--display); font-size: 26px; font-weight: 800; margin-bottom: 12px; letter-spacing: -1px; text-transform: uppercase; }
 
         #detail-modal { position: fixed; inset: 0; background: rgba(3,5,8,0.98); z-index: 100; display: none; align-items: flex-start; justify-content: center; padding: 40px 20px; backdrop-filter: blur(15px); overflow-y: auto; }
         .modal-content { background: var(--surface); border: 1px solid var(--accent); max-width: 800px; width: 100%; padding: 40px; position: relative; }
@@ -71,7 +72,7 @@
 <div id="detail-modal" onclick="closeModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
         <div class="tagline" id="modal-cat"></div>
-        <h2 id="modal-title" style="margin: 10px 0; text-transform: uppercase;"></h2>
+        <h2 id="modal-title" style="margin: 10px 0; text-transform: uppercase; font-family: var(--display); font-weight: 800;"></h2>
         <div class="modal-gallery" id="modal-gallery"></div>
         <div id="modal-body" style="font-family: var(--mono); color: #a1aab8; white-space: pre-wrap; font-size: 14px; line-height: 1.8;"></div>
         <div id="modal-links" style="display:flex; gap:10px; flex-wrap:wrap; margin-top:25px; border-top:1px solid var(--border); padding-top:20px;"></div>
@@ -81,7 +82,7 @@
 
 <div class="container">
     <header>
-        <div class="tagline">ARCHIVE_SYSTEM_v17.3 // UI_REFINE</div>
+        <div class="tagline">ARCHIVE_SYSTEM_v17.4 // TERMINAL_INTERFACE</div>
         <h1>John Hall</h1>
         <p style="font-family: var(--mono); color: var(--muted);">SR_ANALYST // AI_ML_ARCHITECTURE</p>
     </header>
@@ -124,7 +125,7 @@
     <div class="grid" id="project-grid"></div>
 </div>
 
-<div class="login-trigger" onclick="unlockAdmin()">[REDACTED_ACCESS]</div>
+<div class="login-trigger" onclick="unlockAdmin()">[SYSTEM_ACCESS]</div>
 
 <script>
     let projects = [

@@ -1,0 +1,27 @@
+*Card image (thumbnail)
+
+Use a single strong hero image — logo, screenshot, or cover art
+Landscape/16:9 crops best given your aspect ratio constraint
+Even a solid color graphic with text beats a missing image
+
+*Short description (the desc field)
+
+1–2 sentences max, visible on the card
+Lead with what it is, follow with why it matters
+Example: "SQL reporting system built for retail ops. Reduced weekly reporting time by 60%."
+
+*Full log (the detail field)
+
+This is your expandable modal content — go deeper here
+Good sections: What it is → Tools/stack used → Outcome or status
+HTML is supported so you can use <b> headers and line breaks
+
+*Links
+
+Always include at least one — live demo, GitHub, Instagram, video, anything
+Dead-end cards with no link feel unfinished
+
+*Category discipline
+
+One card = one primary category. Don't try to fit a project into two places — pick the dominant context
+PERSONAL entries can be looser/more casual in tone than CAREER ones

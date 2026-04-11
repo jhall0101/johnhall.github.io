@@ -132,7 +132,10 @@
             <input type="text" id="p-img" placeholder="IMAGE_URLS (Comma separated)">
             <input type="text" id="p-links" placeholder="LABEL:URL, LABEL:URL">
             <textarea id="p-desc" rows="2" placeholder="SHORT_SUMMARY"></textarea>
-            <textarea id="p-detail" rows="4" placeholder="FULL_LOG (HTML OK)" onfocus="expandLog(this)" onblur="collapseLog(this)"></textarea>
+            <div style="position:relative;">
+				<textarea id="p-detail" rows="4" placeholder="FULL_LOG (HTML OK)"></textarea>
+				<button type="button" onclick="toggleLog()" id="expand-btn" style="position:absolute; top:8px; right:8px; background:none; border:1px solid var(--muted); color:var(--muted); font-family:var(--mono); font-size:9px; cursor:pointer; padding:3px 8px; text-transform:uppercase; z-index:201;">[ EXPAND ]</button>
+			</div>
             <div style="display:flex; gap:10px; flex-wrap:wrap;">
                 <button class="btn" onclick="saveProject()" id="save-btn">Sync_Entry</button>
                 <button class="btn btn-danger" onclick="cancelEdit()" id="cancel-btn" style="display: none;">Abort</button>
@@ -191,8 +194,18 @@
     let currentChild = 'ALL';
     let editingId = null;
 	
-	function expandLog(el) { el.classList.add('expanded'); }
-	function collapseLog(el) { el.classList.remove('expanded'); }
+	function toggleLog() {
+		const el = document.getElementById('p-detail');
+		const btn = document.getElementById('expand-btn');
+		if (el.classList.contains('expanded')) {
+			el.classList.remove('expanded');
+			btn.innerText = '[ EXPAND ]';
+		} else {
+			el.classList.add('expanded');
+			btn.innerText = '[ COLLAPSE ]';
+			el.focus();
+		}
+	}
 
     function render() {
         const parents = ['ALL', ...new Set([

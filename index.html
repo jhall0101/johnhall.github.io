@@ -35,6 +35,12 @@
         
         .filter-btn { background: none; border: 1px solid var(--border); color: var(--muted); padding: 8px 16px; font-family: var(--mono); font-size: 10px; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
         .filter-btn.active { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); box-shadow: 0 0 15px var(--accent-dim); }
+		.filter-btn:hover { 
+			background: var(--accent-dim); 
+			box-shadow: 0 0 15px var(--accent); 
+			border-color: var(--accent); 
+			color: var(--accent); 
+		}
         
         .sub-btn { font-family: var(--mono); font-size: 9px; color: var(--muted); background: none; border: none; cursor: pointer; text-transform: uppercase; padding: 4px 8px; }
         .sub-btn.active { color: var(--bg); background: var(--accent); font-weight: bold; }
@@ -207,19 +213,19 @@
         });
 
         document.getElementById('project-grid').innerHTML = filtered.map(p => `
-            <div class="card">
-                ${p.img ? `<img src="${p.img.split(',')[0]}" class="card-img">` : ''}
-                <div class="tagline" style="font-size:10px; color:var(--accent); margin-bottom:5px;">// ${p.category.replace(':', ' > ')}</div>
-                <div class="card-title">${p.title}</div>
-                <p style="font-family:var(--mono); color:var(--muted); font-size:12px; flex-grow:1;">${p.desc}</p>
-                <button class="btn" style="margin-top:15px;" onclick="openModal(${p.id})">Open_Log <i data-lucide="chevron-right"></i></button>
-                <div class="admin-actions">
-					<button class="btn" onclick="startEdit(${p.id})">Edit</button>
-					<button class="btn btn-danger" onclick="deleteProject(${p.id})">Del</button>
-                </div>
-            </div>
-        `).join('');
-        lucide.createIcons();
+			<div class="card" onclick="openModal(${p.id})" style="cursor:pointer;">
+				${p.img ? `<img src="${p.img.split(',')[0]}" class="card-img">` : ''}
+				<div class="tagline" style="font-size:10px; color:var(--accent); margin-bottom:5px;">// ${p.category.replace(':', ' > ')}</div>
+				<div class="card-title">${p.title}</div>
+				<p style="font-family:var(--mono); color:var(--muted); font-size:12px; flex-grow:1;">${p.desc}</p>
+				<button class="btn" style="margin-top:15px;" onclick="event.stopPropagation(); openModal(${p.id})">Open_Log <i data-lucide="chevron-right"></i></button>
+				<div class="admin-actions">
+					<button class="btn" onclick="event.stopPropagation(); startEdit(${p.id})">Edit</button>
+					<button class="btn btn-danger" onclick="event.stopPropagation(); deleteProject(${p.id})">Del</button>
+				</div>
+			</div>
+		`).join('');
+		lucide.createIcons();
     }
 
     function setParent(p) { currentParent = p; currentChild = 'ALL'; render(); }

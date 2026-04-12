@@ -59,7 +59,9 @@
         .card { background: var(--surface); border: 1px solid var(--border); padding: 25px; transition: 0.4s; display: flex; flex-direction: column; }
         .card:hover { border-color: var(--accent); transform: translateY(-5px); }
         .card-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; background: #000; margin-bottom: 20px; border: 1px solid var(--border); filter: grayscale(1) brightness(0.7); transition: 0.3s; }
-        .card:hover .card-img { filter: grayscale(0) sepia(0.4) hue-rotate(155deg) saturate(4) brightness(0.85); }
+        .card:hover .card-img { 
+			filter: grayscale(100%) sepia(100%) hue-rotate(145deg) saturate(600%) brightness(1.1); 
+		}
 
         /* LOCKED — DO NOT CHANGE */
         .card-title { font-family: var(--display); font-size: 15px; font-weight: 700; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.2; color: var(--text); }
@@ -81,9 +83,7 @@
         <div id="modal-gallery" style="display:flex; flex-direction:column; gap:20px; margin:20px 0;"><img src="images/JL Data Infographic.png" style="width:100%; max-height:420px; object-fit:contain; border:1px solid var(--border);"><img src="images/Clients by Area Income.png" style="width:100%; max-height:420px; object-fit:contain; border:1px solid var(--border);"><img src="images/JusticeLink ERD Proposal.png" style="width:100%; max-height:420px; object-fit:contain; border:1px solid var(--border);"></div>
         <div id="modal-body" style="font-family:var(--mono); color:#a1aab8; white-space:pre-wrap; font-size:14px; line-height:1.8;">Identified and diagnosed critical reporting limitations within a Salesforce environment that prioritized user interface design over business-critical data relationships. Conducted extensive research into normalization principles to propose a new relational data structure, aimed at eliminating manual workarounds and enhancing system scalability.
 
-<h2 style="color:cyan; margin:0; margin-bottom: 1px;">Key Technical Achievements</h2>
-
-• Relational Data Modeling: Architected a data model identifying key entities and attributes to directly improve the accuracy of queries and reports.
+<h2 style="color:cyan; margin-top: 0; margin-bottom: 5px;">Key Technical Achievements</h2>• Relational Data Modeling: Architected a data model identifying key entities and attributes to directly improve the accuracy of queries and reports.
 
 • Normalization Strategy: Implemented normalization principles to create independent objects for individual business concepts, enhancing system scalability and flexibility.
 

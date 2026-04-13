@@ -63,23 +63,7 @@
         .card-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; background: #000; margin-bottom: 20px; border: 1px solid var(--border); filter: grayscale(1) brightness(0.7); transition: 0.3s; }
         .card:hover .card-img { 
 			filter: grayscale(100%) sepia(100%) hue-rotate(145deg) saturate(600%) brightness(1.1); 
-		}
-		
-		#modal-gallery img {
-			position: relative;
-			display: none;
-		}
-
-		/* Optional: Add a slight dimming to the images in the modal 
-		   until they are hovered, to keep that dark terminal vibe */
-		#modal-gallery img {
-			filter: brightness(0.8);
-			transition: filter 0.3s ease;
-		}
-
-		#modal-gallery img:hover {
-			filter: brightness(1);
-		}
+		}	
 		
 		/* Container for the preview */
 		.image-wrapper {
@@ -220,6 +204,7 @@
                 <input type="text" id="p-category" placeholder="DOMAIN (PARENT:CHILD)" fdprocessedid="cnpm1">
             </div>
             <input type="text" id="p-img" placeholder="IMAGE_URLS (Comma separated)" fdprocessedid="2hzzf">
+			<input type="text" id="p-imgpos" placeholder="IMAGE FOCAL POINT (e.g. center top, 50% 30%) — optional">
             <input type="text" id="p-links" placeholder="LABEL:URL, LABEL:URL" fdprocessedid="duarsx">
             <textarea id="p-desc" rows="2" placeholder="SHORT_SUMMARY"></textarea>
             <textarea id="p-detail" placeholder="FULL_LOG (HTML OK)"></textarea>
@@ -330,7 +315,7 @@
 
         document.getElementById('project-grid').innerHTML = filtered.map(p => `
             <div class="card" onclick="openModal(${p.id})" style="cursor:pointer;">
-                ${p.img ? `<img src="${p.img.split(',')[0].trim()}" class="card-img" width="640" loading="lazy" alt="${p.title}">` : ''}
+                ${p.img ? `<img src="${p.img.split(',')[0].trim()}" class="card-img" width="640" loading="lazy" alt="${p.title}" style="object-position: ${p.imgPos || 'center'}">` : ''}
                 <div class="tagline" style="font-size:10px; color:var(--accent); margin-bottom:5px;">// ${p.category.replace(':', ' > ')}</div>
                 <div class="card-title">${p.title}</div>
                 <p style="font-family:var(--mono); color:var(--muted); font-size:12px; flex-grow:1;">${p.desc}</p>
@@ -406,22 +391,24 @@
 	}
 
     function saveProject() {
-        const p = {
-            id: editingId || Date.now(),
-            title: document.getElementById('p-title').value,
-            category: document.getElementById('p-category').value.toUpperCase().trim(),
-            desc: document.getElementById('p-desc').value,
-            detail: document.getElementById('p-detail').value,
-            img: document.getElementById('p-img').value,
-            links: document.getElementById('p-links').value
-        };
-        if(editingId) projects = projects.map(x => x.id === editingId ? p : x);
-        else projects.push(p);
-        cancelEdit(); render();
-    }
+		const p = {
+			id: editingId || Date.now(),
+			title: document.getElementById('p-title').value,
+			category: document.getElementById('p-category').value.toUpperCase().trim(),
+			desc: document.getElementById('p-desc').value,
+			detail: document.getElementById('p-detail').value,
+			img: document.getElementById('p-img').value,
+			imgPos: document.getElementById('p-imgpos').value.trim(),
+			links: document.getElementById('p-links').value
+		};
+		if(editingId) projects = projects.map(x => x.id === editingId ? p : x);
+		else projects.push(p);
+		cancelEdit(); render();
+	}
 
     function startEdit(id) {
         editingId = id; const p = projects.find(x => x.id === id);
+		document.getElementById('p-imgpos').value = p.imgPos || '';
         document.getElementById('p-title').value = p.title;
         document.getElementById('p-category').value = p.category;
         document.getElementById('p-desc').value = p.desc;
@@ -435,7 +422,7 @@
 
     function cancelEdit() {
         editingId = null;
-        ['p-title','p-category','p-desc','p-detail','p-img','p-links'].forEach(id => document.getElementById(id).value = '');
+        ['p-title','p-category','p-desc','p-detail','p-img','p-imgpos','p-links'].forEach(id => document.getElementById(id).value = '');
         document.getElementById('save-btn').innerText = "Sync_Entry";
         document.getElementById('cancel-btn').style.display = "none";
     }

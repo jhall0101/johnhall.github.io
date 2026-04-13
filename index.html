@@ -122,7 +122,7 @@
 		.gallery-preview {
 			width: 100%;
 			height: 100%;
-			object-fit: cover;
+			object-fit: contain;
 			object-position: center;
 			background: var(--bg);
 			filter: brightness(0.6) grayscale(0.5); 
@@ -253,6 +253,7 @@
 				<div id="focal-dot" style="left: 50%; top: 50%;"></div>
 				<div id="focal-label">CLICK TO SET FOCAL POINT</div>
 			</div>
+			<input type="text" id="p-imgfit" placeholder="MODAL IMAGE FIT: contain (default) | cover | fill — optional">
             <input type="text" id="p-links" placeholder="LABEL:URL, LABEL:URL">
             <textarea id="p-desc" rows="2" placeholder="SHORT_SUMMARY"></textarea>
             <textarea id="p-detail" placeholder="FULL_LOG (HTML OK)"></textarea>
@@ -393,7 +394,7 @@
         document.getElementById('modal-body').innerHTML = p.detail || p.desc;
 		document.getElementById('modal-gallery').innerHTML = p.img ? p.img.split(',').map(src =>
 			`<div class="image-wrapper" onclick="event.stopPropagation(); zoomImage('${src.trim()}')">
-				<img src="${src.trim()}" class="gallery-preview" loading="lazy" alt="">
+				<img src="${src.trim()}" class="gallery-preview" loading="lazy" alt="" style="object-fit: ${p.imgFit || 'contain'}; object-position: center;">
 				<div class="zoom-overlay">
 					<i data-lucide="maximize-2"></i>
 				</div>
@@ -447,6 +448,7 @@
 			detail: document.getElementById('p-detail').value,
 			img: document.getElementById('p-img').value,
 			imgPos: document.getElementById('p-imgpos').value.trim(),
+			imgFit: document.getElementById('p-imgfit').value.trim(),
 			links: document.getElementById('p-links').value
 		};
 		if(editingId) projects = projects.map(x => x.id === editingId ? p : x);
@@ -465,13 +467,14 @@
         document.getElementById('p-links').value = p.links || '';
         document.getElementById('save-btn').innerText = "Update_Entry";
         document.getElementById('cancel-btn').style.display = "inline-flex";
+		document.getElementById('p-imgfit').value = p.imgFit || '';
         window.scrollTo({top: 0, behavior: 'smooth'});
 		updateFocalPicker();
     }
 
     function cancelEdit() {
         editingId = null;
-        ['p-title','p-category','p-desc','p-detail','p-img','p-imgpos','p-links'].forEach(id => document.getElementById(id).value = '');
+        ['p-title','p-category','p-desc','p-detail','p-img','p-imgpos','p-imgfit','p-links'].forEach(id => document.getElementById(id).value = '');
         document.getElementById('save-btn').innerText = "Sync_Entry";
         document.getElementById('cancel-btn').style.display = "none";
 		document.getElementById('focal-picker').style.display = 'none';

@@ -472,6 +472,7 @@ I founded Elevated Candles as both a product business and a live analytical envi
 
     function openModal(id) {
         const p = projects.find(x => x.id === id);
+        document.getElementById('detail-modal').scrollTop = 0;
         document.getElementById('modal-title').innerText = p.title;
         document.getElementById('modal-cat').innerText = `DATA_ENTRY // ${p.category}`;
         document.getElementById('modal-body').innerHTML = p.detail || p.desc;

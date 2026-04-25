@@ -463,25 +463,27 @@ In Development</div>
 
     function openModal(id) {
         const p = projects.find(x => x.id === id);
+        const modal = document.getElementById('detail-modal');
         document.getElementById('modal-title').innerText = p.title;
         document.getElementById('modal-cat').innerText = `DATA_ENTRY // ${p.category}`;
         document.getElementById('modal-body').innerHTML = p.detail || p.desc;
-		document.getElementById('modal-gallery').innerHTML = p.img ? p.img.split(',').map(src =>
-			`<div class="image-wrapper" onclick="event.stopPropagation(); zoomImage('${src.trim()}')">
-				<img src="${src.trim()}" class="gallery-preview" loading="lazy" alt="" style="object-fit: ${p.imgFit || 'contain'}; object-position: ${p.imgPos || 'center'};">
-				<div class="zoom-overlay">
-					<i data-lucide="maximize-2"></i>
-				</div>
-			</div>`
-		).join('') : '';
+        document.getElementById('modal-gallery').innerHTML = p.img ? p.img.split(',').map(src =>
+            `<div class="image-wrapper" onclick="event.stopPropagation(); zoomImage('${src.trim()}')">
+                <img src="${src.trim()}" class="gallery-preview" loading="lazy" alt="" style="object-fit: ${p.imgFit || 'contain'}; object-position: ${p.imgPos || 'center'};">
+                <div class="zoom-overlay">
+                    <i data-lucide="maximize-2"></i>
+                </div>
+            </div>`
+        ).join('') : '';
         document.getElementById('modal-links').innerHTML = p.links ? p.links.split(',').map(l => {
             const parts = l.split(':');
             const label = parts.shift().trim();
             const url = parts.join(':').trim();
             return `<a href="${url}" target="_blank" class="btn">${label}</a>`;
         }).join('') : '';
-        document.getElementById('detail-modal').style.display = 'flex';
+        modal.style.display = 'flex';
         document.body.style.overflow = 'hidden';
+        modal.scrollTop = 0;
         lucide.createIcons();
     }
 
